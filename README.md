@@ -6,7 +6,7 @@ We recommend that you use [Visual Studio (Community Edition)](https://visualstud
 **The application uses an in-memory database, so changes will not be persisted between executions.**
 
 ## The Exercise
-Complete as many of the tasks below as you feel comfortable with. These are split into 4 levels of difficulty 
+Complete as many of the tasks below as you feel comfortable with. These are split into 4 levels of difficulty
 * **Standard** - Functionality that is common when working as a web developer
 * **Advanced** - Slightly more technical tasks and problem solving
 * **Expert** - Tasks with a higher level of problem solving and architecture needed
