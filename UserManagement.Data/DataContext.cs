@@ -42,63 +42,65 @@ public class DataContext : DbContext, IDataContext
     public void Create<TEntity>(TEntity entity) where TEntity : class
     {
         base.Add(entity);
+        AddLogEntry(entity as User, base.ChangeTracker.Entries());
         SaveChanges();
     }
 
     public new void Update<TEntity>(TEntity entity) where TEntity : class
     {
         base.Update(entity);
+        AddLogEntry(entity as User, base.ChangeTracker.Entries());
         SaveChanges();
     }
 
-    //private void AddLogEntry(User? user, IEnumerable<EntityEntry> Entries)
-    //{
-    //    foreach (EntityEntry e in Entries)
-    //    {
+    private void AddLogEntry(User? user, IEnumerable<EntityEntry> Entries)
+    {
+        foreach (EntityEntry e in Entries)
+        {
+            UserManagement.Data.Entities.LogEntry entry = new UserManagement.Data.Entities.LogEntry();
 
-    //        LogEntry entry = new LogEntry();
+            entry.Action = e.State.ToString();
 
-    //        entry.Action =e.State.ToString();
+            var originalValues = e.OriginalValues.Clone();
+            originalValues.SetValues(e.OriginalValues);
+            User original = (User)originalValues.ToObject();
 
-    //        var originalValues = e.OriginalValues.Clone();
-    //        originalValues.SetValues(e.OriginalValues);
-    //        User original = (User)originalValues.ToObject();
+            Type myType = original.GetType();
+            string fieldValues = "";
 
-    //        Type myType = original.GetType();
-    //        string fieldValues = "";
-    //        IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
-    //        foreach (PropertyInfo prop in props)
-    //        {
-    //            object? propValue = prop.GetValue(original, null);
-    //            string? propStringValue = propValue!=null? propValue.ToString() : "";
-    //            string Name = prop.Name;
+            IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
+            foreach (PropertyInfo prop in props)
+            {
+                object? propValue = prop.GetValue(original, null);
+                string? propStringValue = propValue != null ? propValue.ToString() : "";
+                string Name = prop.Name;
 
-    //            fieldValues += $"{Name}: {propStringValue}, ";
+                fieldValues += $"{Name}: {propStringValue}, ";
 
-    //            if(string.Compare(Name,"ID",true)==0)
-    //            {
-    //                int id;
-    //                int.TryParse(propStringValue, out id);
-    //                entry.ID = id;
-    //            }
-    //        }
+                if (string.Compare(Name, "ID", true) == 0)
+                {
+                    int id;
+                    int.TryParse(propStringValue, out id);
+                    entry.UserID = id;
+                }
+            }
             
-    //        entry.CreatedDate = DateTime.Now;
-    //        entry.FieldValues = fieldValues;
-    //        if (user != null)
-    //        {
-    //            if(user.Entries==null)
-    //            {
-    //                user.Entries = new List<LogEntry>();
-    //            }
-    //            user.Entries.Add(entry);
-    //        }
-    //    }
-    //}
+            entry.CreatedDate = DateTime.Now;
+            entry.FieldValues = fieldValues;
+            
+            if (UserManagement.Data.Entities.Logs.Entries == null)
+            {
+                UserManagement.Data.Entities.Logs.Entries = new List<Entities.LogEntry>();
+            }
+            UserManagement.Data.Entities.Logs.Entries.Add(entry);
+            
+        }
+    }
 
     public void Delete<TEntity>(TEntity entity) where TEntity : class
     {
         base.Remove(entity);
+        AddLogEntry(entity as User, base.ChangeTracker.Entries());
         SaveChanges();
     }
 }

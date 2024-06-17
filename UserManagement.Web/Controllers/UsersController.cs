@@ -36,7 +36,6 @@ public class UsersController : Controller
             Email = p.Email,
             IsActive = p.IsActive,
             DateOfBirth = p.DateOfBirth,
-            Logs = p.Logs.Select(q => new Web.Models.Users.LogEntry { Entry = q.Entry}).ToList(),
         }).Where(p=>p.Id==id).FirstOrDefault();
 
 
@@ -60,7 +59,6 @@ public class UsersController : Controller
                 Email = p.Email,
                 IsActive = p.IsActive,
                 DateOfBirth = p.DateOfBirth,
-                Logs = p.Logs.Select(q => new Web.Models.Users.LogEntry { Entry = q.Entry }).ToList(),
             });
         }
         else
@@ -73,7 +71,6 @@ public class UsersController : Controller
                 Email = p.Email,
                 IsActive = p.IsActive,
                 DateOfBirth = p.DateOfBirth,
-                Logs = p.Logs.Select(q => new Web.Models.Users.LogEntry {  Entry = q.Entry }).ToList(),
             });
         }
 
