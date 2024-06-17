@@ -1,0 +1,49 @@
+﻿@model UserManagement.Web.Models.Users.UserListItemViewModel
+@{
+   var user = ViewData.Model;
+}
+<h2>@ViewBag.Message</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Forename</th>
+                <th>Surname</th>
+                <th>Date Of Birth</th>
+                <th>Email</th>
+                <th>Account Active</th>
+                <th style="width: 1px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+
+                <tr>
+                    <td>
+                        @user.Id
+                    </td>
+                    <td>
+                        @user.Forename
+                    </td>
+                    <td>
+                        @user.Surname
+                    </td>
+                    <td>
+                        @user.DateOfBirth
+                    </td>
+                    <td>
+                        @user.Email
+                    </td>
+                    <td>
+                        @(user.IsActive ? "Yes" : "No")
+                    </td>
+                </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-controller="Users" asp-action="List" class="btn btn-default">Show All</a>
+</div>
+
