@@ -19,6 +19,27 @@ public class UsersController : Controller
     public UsersController(IUserService userService) => _userService = userService;
 
     [HttpGet]
+    [Route("ViewUserLog")]
+    public ViewResult ViewUserLog(int id)
+    {
+        if (UserManagement.Data.Entities.Logs.Entries != null)
+        {
+            var item = UserManagement.Data.Entities.Logs.Entries.Select(p => new LogListItemViewModel
+            {
+                Id = p.UserID,
+                Fields = p.FieldValues,
+                Action = p.Action,
+                Created = p.CreatedDate
+            }).Where(p => p.Id== id).FirstOrDefault();
+            return View(item);
+        }
+        else
+        {
+            return View("NoLogs");
+        }
+    }
+
+    [HttpGet]
     [Route("View")]
     public ViewResult ViewUser(int id)
     {

@@ -12,7 +12,10 @@ public class LogListViewModel
 public class LogListItemViewModel
 {
     public long Id { get; set; }
+    public string Fields { get; set; } = default!;
+    public string Action { get; set; } = default!;
 
+    public DateTime Created { get; set; } = default!;
 }
 
 
