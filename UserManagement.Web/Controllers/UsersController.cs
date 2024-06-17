@@ -50,11 +50,12 @@ public class UsersController : Controller
     [HttpGet]
     public ViewResult List(string active)
     {
-        bool showActive = Convert.ToBoolean(active);
+        
         IEnumerable<UserListItemViewModel> items;
 
         if (!string.IsNullOrWhiteSpace(active))
         {
+            bool showActive = Convert.ToBoolean(active);
             items = _userService.FilterByActive(showActive).Select(p => new UserListItemViewModel
             {
                 Id = p.Id,
