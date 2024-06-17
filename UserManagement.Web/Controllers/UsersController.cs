@@ -35,9 +35,15 @@ public class UsersController : Controller
             Surname = p.Surname,
             Email = p.Email,
             IsActive = p.IsActive,
-            DateOfBirth = p.DateOfBirth
+            DateOfBirth = p.DateOfBirth,
+            Logs = p.Logs.Select(q => new Web.Models.Users.LogEntry { Forename = q.Entry}).ToList(),
         }).Where(p=>p.Id==id).FirstOrDefault();
 
+        if (item != null)
+        {
+            if(item.Logs!=null)
+                item.Logs.Add(new Web.Models.Users.LogEntry());
+        }
         return View(item);
     }
 
@@ -57,6 +63,7 @@ public class UsersController : Controller
                 Email = p.Email,
                 IsActive = p.IsActive,
                 DateOfBirth = p.DateOfBirth,
+                Logs = p.Logs.Select(q => new Web.Models.Users.LogEntry { Forename = q.Entry }).ToList(),
             });
         }
         else
@@ -68,7 +75,8 @@ public class UsersController : Controller
                 Surname = p.Surname,
                 Email = p.Email,
                 IsActive = p.IsActive,
-                DateOfBirth = p.DateOfBirth
+                DateOfBirth = p.DateOfBirth,
+                Logs = p.Logs.Select(q => new Web.Models.Users.LogEntry {  Forename = q.Entry }).ToList(),
             });
         }
 
@@ -99,6 +107,13 @@ public class UsersController : Controller
             Forename = model.Forename ?? string.Empty,
             Surname = model.Surname ?? string.Empty
         };
+
+        usermodel.Logs = new List<Models.LogEntry>();
+        Models.LogEntry en = new Models.LogEntry();
+        en.Entry = "JAMES";
+        en.Id = usermodel.Id;
+        en.UId = usermodel;
+        usermodel.Logs.Add(en);
 
         if (!ModelState.IsValid)
         {

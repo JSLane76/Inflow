@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UserManagement.Web.Models.Users;
 
@@ -23,6 +24,13 @@ public class UserListItemViewModel
     [DisplayName("Date Of Birth")]
     public DateOnly? DateOfBirth { get; set; }
 
+    public List<LogEntry>? Logs { get; set; }
+}
+
+public class LogEntry
+{
+    public long Id { get; set; }
+    public string Forename { get; set; } = default!;
 }
 
 

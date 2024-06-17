@@ -15,7 +15,17 @@ public class User
     public bool IsActive { get; set; }
 
     public DateOnly DateOfBirth { get; set; }
+    public List<LogEntry> Logs { get; set; } = new List<LogEntry>();
+}
 
+public class LogEntry
+{
+    //[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    //public long LogId { get; set; }
+    public string Entry { get; set; } = default!;
+    public long Id { get; set; } 
+    [ForeignKey("Id")]
+    public User? UId { get; set; }
 }
 
 
