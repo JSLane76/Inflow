@@ -30,7 +30,7 @@ public class UserListItemViewModel
 public class LogEntry
 {
     public long Id { get; set; }
-    public string Forename { get; set; } = default!;
+    public string Entry { get; set; } = default!;
 }
 
 
