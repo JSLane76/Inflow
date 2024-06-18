@@ -36,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="DateOfBirth" class="control-label">Date Of Brith</label>
-                <input asp-for="DateOfBirth" class="form-control" />
+                <input asp-for="DateOfBirth" id="datepicker" type="text" class="form-control" />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -47,6 +47,23 @@
 </div>
 
 <div>
-    <a asp-action="Index">Show all</a>
+    <a asp-action="Index">Show All Users</a>
 </div>
+
+@section Scripts
+{
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(function () {
+                    $("#datepicker").datepicker({ 
+                   changeMonth: true,
+                   changeYear: true,
+                   yearRange: "-100:+0",
+                   dateFormat: 'dd/mm/yy' 
+                });
+            });
+         </script>
+}
 

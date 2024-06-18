@@ -20,22 +20,61 @@ public class UsersController : Controller
 
     [HttpGet]
     [Route("ViewUserLog")]
-    public ViewResult ViewUserLog(int id)
+    public ViewResult ViewUserLog(int id, string command)
     {
         if (UserManagement.Data.Entities.Logs.Entries != null)
         {
-            var item = UserManagement.Data.Entities.Logs.Entries.Select(p => new LogListItemViewModel
+            var items = UserManagement.Data.Entities.Logs.Entries.Select(p => new LogListItemViewModel
             {
                 Id = p.UserID,
                 Fields = p.FieldValues,
                 Action = p.Action,
                 Created = p.CreatedDate
-            }).Where(p => p.Id== id).FirstOrDefault();
-            return View(item);
+            }).Where(p => p.Id == id);
+            ViewBag.id = id;
+
+            if (!string.IsNullOrWhiteSpace(command))
+            {
+                items = items.Where(p=>p.Action== command);
+            }
+
+            var model = new LogListViewModel
+            {
+                Items = items.ToList()
+            };
+
+            return View(model);
         }
         else
         {
             return View("NoLogs");
+        }
+    }
+
+    [HttpGet]
+    [Route("ViewUsersDeletedLog")]
+    public ViewResult ViewUsersDeletedLog()
+    {
+        if (UserManagement.Data.Entities.Logs.Entries != null)
+        {
+            var items = UserManagement.Data.Entities.Logs.Entries.Select(p => new LogListItemViewModel
+            {
+                Id = p.UserID,
+                Fields = p.FieldValues,
+                Action = p.Action,
+                Created = p.CreatedDate
+            }).Where(p => p.Action == "Deleted");
+
+            var model = new LogListViewModel
+            {
+                Items = items.ToList()
+            };
+
+            return View(model);
+        }
+        else
+        {
+            return View("NoDeletedLogs");
         }
     }
 

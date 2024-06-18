@@ -18,6 +18,7 @@ public class UserListItemViewModel
     [Required]
     public string? Surname { get; set; }
     [Required]
+    [RegularExpression("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", ErrorMessage = "Email is not valid")]
     public string? Email { get; set; }
     public bool IsActive { get; set; }
     [Required]
