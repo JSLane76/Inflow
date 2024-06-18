@@ -7,7 +7,7 @@
 
 ### 3. Actions Section (Standard) - DONE
 
-### 4. Data Logging (Advanced) - NOT COMPLETE Currently only basic screen to show logs for a user
+### 4. Data Logging (Advanced) - DONE Added ability to view logs for a particular user from the view screen with filtering on entry type. Deleted users can be seen from the main list screen. Ive used a static class for logging in a real world scenario you wouldnt want to persist the logging information in memory. A future improvment here would be to create all log entry asynchronously. 
 
 ### 5. Extend the Application (Expert) - Done some bundling and Minification work
 
