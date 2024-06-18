@@ -7,7 +7,7 @@
 
 ### 3. Actions Section (Standard) - DONE
 
-### 4. Data Logging (Advanced) - NOT COMPLETE Added static class which currently logs all operations against a user that result in a change to the data, this hast been displayed as yet.
+### 4. Data Logging (Advanced) - NOT COMPLETE Currently only basic screen to show logs for a user
 
 ### 5. Extend the Application (Expert) - Done some bundling and Minification work
 
